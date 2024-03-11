@@ -1,118 +1,147 @@
 package org.example;
 
 import java.util.Arrays;
-import java.util.Comparator;
-import java.util.Iterator;
 
-public class MyArrayList<T> implements MyArray<T> {
-    private T[] elements;
+/**
+ * MyArrayList саморасширяющийся список, который может хранить элементы любого типа.
+ *
+ * @param <T> тип элемента добавляемого в список
+ */
+public class MyArrayList<T> {
+
+    private Object[] elements;
+    public int size;
 
     public MyArrayList() {
-        elements = (T[]) new Object[0];
+        elements = new Object[3];
+        size = 0;
     }
 
-    @Override
-    public boolean add(T element) {
-        try {
-            T[] temp = elements;
-            elements = (T[]) new Object[temp.length + 1];
-            System.arraycopy(temp, 0, elements, 0, temp.length);
-            elements[elements.length - 1] = element;
-            return true;
-        } catch (ClassCastException e) {
-            e.printStackTrace();
+    /**
+     * Метод add(T element) добавляет элемент в конец списка. Если список полон, происходит его увеличение в 2 раза
+     *
+     * @param element добавляемый элемент
+     */
+    public void add(T element) {
+        if (size == elements.length) {
+            increaseCapacity();
         }
-        return false;
+        elements[size++] = element;
     }
 
-    @Override
+    /**
+     * Добавляет элемент в список по указанному индексу. Если список полон, происходит его увеличение в 2 раза.
+     *
+     * @param index   индекс
+     * @param element элемент
+     */
     public void add(int index, T element) {
-        if (index < 0 || index > elements.length) {
-            throw new IndexOutOfBoundsException("Недопустимое значение индекса");
+        if (index < 0 || index > size) {
+            throw new IndexOutOfBoundsException("Указанный индекс должен быть >= 0 и <= длине списка.");
         }
+        if (size == elements.length) {
+            increaseCapacity();
+        }
+        System.arraycopy(elements, index, elements, index + 1, size - index);
         elements[index] = element;
+        size++;
     }
 
-    @Override
+    /**
+     * Возвращает элемент из списка по указанному индексу.
+     *
+     * @param index индекс в списке
+     * @return возврат элемента
+     */
+    @SuppressWarnings("unchecked")
     public T get(int index) {
-        return elements[index];
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException();
+        }
+        return (T) elements[index];
     }
 
-    @Override
+    /**
+     * Удаляет элемент из списка по указанному индексу.
+     *
+     * @param index индекс в списке
+     */
     public void remove(int index) {
-        if (index < 0 || index >= elements.length) {
-            throw new IndexOutOfBoundsException("Недопустимое значение индекса");
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException("Указанный индекс должен быть >= 0 и <= длине списка.");
         }
-        try {
-            T[] temp = elements;
-            elements = (T[]) new Object[temp.length - 1];
-            System.arraycopy(temp, 0, elements, 0, index);
-            int amountElementsAfterIndex = temp.length - index - 1;
-            System.arraycopy(temp, index + 1,
-                    elements, index,
-                    amountElementsAfterIndex);
-        } catch (ClassCastException e) {
-            e.printStackTrace();
-        }
+        System.arraycopy(elements, index + 1, elements, index, size - index - 1);
+        size--;
     }
 
-    @Override
+    /**
+     * Очищает список от всех элементов.
+     */
     public void clear() {
-        elements = (T[]) new Object[0];
+        size = 0;
+        elements = new Object[10];
     }
 
-    @Override
-    public void sort(Comparator<T> comparator) {
-        Arrays.sort(elements, comparator);
+    /**
+     * Cортирует список используя Arrays.sort().
+     */
+    @SuppressWarnings("unchecked")
+    public void sort() {
+        Arrays.sort((T[]) elements, 0, size);
     }
 
-    @Override
-    public Iterator<T> iterator() {
-        return new ArrayIterator<>(elements);
+    private void increaseCapacity() {
+        int newCapacity = elements.length * 2;
+        Object[] newElements = new Object[newCapacity];
+        System.arraycopy(elements, 0, newElements, 0, size);
+        elements = newElements;
     }
 
-    @Override
-    public String toString() {
-        return "MyArrayList{" +
-                "с элементами = " + Arrays.toString(elements) +
-                '}';
+    /**
+     * Быстрая сортировка:
+     * 1.Выбираем опорный элемент из массива.
+     * 2.Делим массив на 2 подмассива. Элементы, которые меньше опорного, и элементы, которые больше опорного.
+     * 3.Рекурсивно применяем сортировку к обоим подмассивам.
+     */
+    public void quicksort() {
+        quicksort(0, size - 1);
     }
 
-
-    public void quickSort(Comparator<T> comparator) {
-        quickSort(elements, 0, elements.length - 1, comparator);
-    }
-
-    private void quickSort(T[] elements, int low, int high, Comparator<T> comparator) {
+    private void quicksort(int low, int high) {
         if (low < high) {
-            int partitionIndex = partition(elements, low, high, comparator);
-            quickSort(elements, low, partitionIndex - 1, comparator);
-            quickSort(elements, partitionIndex + 1, high, comparator);
+            int pivotIndex = partition(low, high);
+            quicksort(low, pivotIndex - 1);
+            quicksort(pivotIndex + 1, high);
         }
     }
 
-    private int partition(T[] elements, int low, int high, Comparator<T> comparator) {
-        T median = elements[(low + high) / 2];
+    private int partition(int low, int high) {
+        T pivot = get(high);
         int i = low - 1;
-        int j = high + 1;
 
-        while (true) {
-            do {
+        for (int j = low; j < high; j++) {
+            if (compare(get(j), pivot) <= 0) {
                 i++;
-            } while (comparator.compare(elements[i], median) < 0);
-
-            do {
-                j--;
-            } while (comparator.compare(elements[j], median) > 0);
-
-            if (i < j) {
-                T temp = elements[i];
-                elements[i] = elements[j];
-                elements[j] = temp;
-            } else {
-                return j;
+                swap(i, j);
             }
         }
+
+        swap(i + 1, high);
+        return i + 1;
     }
 
+    private void swap(int i, int j) {
+        Object temp = elements[i];
+        elements[i] = elements[j];
+        elements[j] = temp;
+    }
+
+    @SuppressWarnings("unchecked")
+    private int compare(T obj1, T obj2) {
+        if (obj1 instanceof Comparable && obj2 instanceof Comparable) {
+            return ((Comparable<T>) obj1).compareTo(obj2);
+        } else {
+            throw new UnsupportedOperationException("Класс T должен реализовывать интерфейс Comparable<T>.");
+        }
+    }
 }

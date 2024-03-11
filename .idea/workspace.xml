@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0a50ea61-fbc0-4935-88c9-71de8d2745bf" name="Changes" comment="update gitignore" />
+    <list default="true" id="0a50ea61-fbc0-4935-88c9-71de8d2745bf" name="Changes" comment="update" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -15,6 +15,8 @@
       <list>
         <option value="Class" />
         <option value="Interface" />
+        <option value="JUnit4 Test Class" />
+        <option value="JUnit5 Test Class" />
       </list>
     </option>
   </component>
@@ -25,6 +27,9 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="2dVLgGon0fJqQ9UG55QH2kOf2ok" />
   <component name="ProjectViewState">
@@ -37,16 +42,30 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/sashabetting/dev/myArrayList",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4": "junit.framework.TestCase",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
+    "last_opened_file_path": "C:/Users/sashabetting/dev/java-kanban",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "reference.settings.project.maven.repository.indices",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
+      <recent name="org.example" />
+    </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+      <recent name="junit.framework.TestCase" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
       <recent name="org.example" />
     </key>
   </component>
@@ -74,7 +93,7 @@
       <option name="presentableId" value="Default" />
       <updated>1710088410979</updated>
       <workItem from="1710088411988" duration="4248000" />
-      <workItem from="1710092691848" duration="1141000" />
+      <workItem from="1710092691848" duration="15124000" />
     </task>
     <task id="LOCAL-00001" summary="update gitignore">
       <option name="closed" value="true" />
@@ -84,14 +103,51 @@
       <option name="project" value="LOCAL" />
       <updated>1710093660140</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="1st commit need unit-tests and doc">
+      <option name="closed" value="true" />
+      <created>1710093886933</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1710093886933</updated>
+    </task>
+    <task id="LOCAL-00003" summary="1st commit need unit-tests and doc">
+      <option name="closed" value="true" />
+      <created>1710094066713</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1710094066713</updated>
+    </task>
+    <task id="LOCAL-00004" summary="update">
+      <option name="closed" value="true" />
+      <created>1710134952466</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1710134952466</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="update gitignore" />
-    <option name="LAST_COMMIT_MESSAGE" value="update gitignore" />
+    <MESSAGE value="1st commit need unit-tests and doc" />
+    <MESSAGE value="update" />
+    <option name="LAST_COMMIT_MESSAGE" value="update" />
   </component>
 </project>

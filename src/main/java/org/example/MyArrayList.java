@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Iterator;
 
-public class MyArrayList<T> implements MyArray<T>{
+public class MyArrayList<T> implements MyArray<T> {
     private T[] elements;
 
     public MyArrayList() {
@@ -48,9 +48,9 @@ public class MyArrayList<T> implements MyArray<T>{
             elements = (T[]) new Object[temp.length - 1];
             System.arraycopy(temp, 0, elements, 0, index);
             int amountElementsAfterIndex = temp.length - index - 1;
-            System.arraycopy(temp, index + 1, //откуда
-                    elements, index,          //куда
-                    amountElementsAfterIndex);//сколько
+            System.arraycopy(temp, index + 1,
+                    elements, index,
+                    amountElementsAfterIndex);
         } catch (ClassCastException e) {
             e.printStackTrace();
         }
@@ -73,8 +73,46 @@ public class MyArrayList<T> implements MyArray<T>{
 
     @Override
     public String toString() {
-        return "Мой лист{" +
-                " с элементами = " + Arrays.toString(elements) +
+        return "MyArrayList{" +
+                "с элементами = " + Arrays.toString(elements) +
                 '}';
     }
+
+
+    public void quickSort(Comparator<T> comparator) {
+        quickSort(elements, 0, elements.length - 1, comparator);
+    }
+
+    private void quickSort(T[] elements, int low, int high, Comparator<T> comparator) {
+        if (low < high) {
+            int partitionIndex = partition(elements, low, high, comparator);
+            quickSort(elements, low, partitionIndex - 1, comparator);
+            quickSort(elements, partitionIndex + 1, high, comparator);
+        }
+    }
+
+    private int partition(T[] elements, int low, int high, Comparator<T> comparator) {
+        T median = elements[(low + high) / 2];
+        int i = low - 1;
+        int j = high + 1;
+
+        while (true) {
+            do {
+                i++;
+            } while (comparator.compare(elements[i], median) < 0);
+
+            do {
+                j--;
+            } while (comparator.compare(elements[j], median) > 0);
+
+            if (i < j) {
+                T temp = elements[i];
+                elements[i] = elements[j];
+                elements[j] = temp;
+            } else {
+                return j;
+            }
+        }
+    }
+
 }
